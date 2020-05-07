@@ -11,7 +11,16 @@
 
 <body>
   <div class="container-fluid">
-    <h1>Student Grade Table</h1>
+    <header>
+      <div class="row">
+        <div class="col-sm-9">
+          <h1>Student Grade Table</h1>
+        </div>
+        <div id="badge" class="col-sm-3">
+        </div>
+      </div>
+    </header>
+
     <table id="main-table" class="table table-sm table-dark table-hover table-striped">
       <thead>
       </thead>
@@ -23,6 +32,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js" crossorigin="anonymous"></script>
   <script src="components/app.js"></script>
+  <script src="components/page-header.js"></script>
   <script src="components/grade-table.js"></script>
   <script src="js/main.js"></script>
 </body>
