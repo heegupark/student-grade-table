@@ -1,6 +1,7 @@
 var mainTable = document.getElementById('main-table')
+var noGradeElement = document.getElementById('no-grade-p')
 
-var gradeTable = new GradeTable(mainTable)
+var gradeTable = new GradeTable(mainTable, noGradeElement)
 
 var headerElement = document.querySelector('header')
 

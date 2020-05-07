@@ -6,7 +6,7 @@ class PageHeader {
   updateAverage(newAverage) {
     var badgeElement = document.getElementById('badge')
 
-    while(badgeElement.firstChild) {
+    while (badgeElement.firstChild) {
       badgeElement.firstChild.remove()
     }
 
@@ -16,7 +16,7 @@ class PageHeader {
     var spanElement = document.createElement('span')
     spanElement.classList.add('badge')
     spanElement.classList.add('badge-secondary')
-    spanElement.textContent = newAverage.toFixed(2)
+    spanElement.textContent = newAverage.toFixed(1)
     h5Element.append(spanElement)
     badgeElement.append(h5Element)
   }

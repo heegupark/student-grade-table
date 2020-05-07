@@ -11,51 +11,55 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="header-container container">
     <header>
       <div class="row">
-        <div class="col-sm">
-          <h1>Student Grade Table</h1>
+        <div class="col-9 mr-auto">
+          <h1 class="align-middle">Student Grade Table</h1>
         </div>
-        <div id="badge" class="col-sm">
+        <div id="badge" class="col-3 mr-auto">
         </div>
       </div>
     </header>
   </div>
-  <div class="container">
+  <div class="main-container container">
     <div class="row">
-      <div class="col-sm">
+      <div class="col-9 mr-auto">
         <table id="main-table" class="table table-sm table-dark table-hover table-striped">
           <thead>
           </thead>
           <tbody>
           </tbody>
         </table>
+        <p id="no-grade-p" class="d-none">No Grades Recorded</p>
       </div>
-      <div class="col-sm">
-        <form id="grade-form" action="">
+      <div class="col-3 mr-auto">
+        <form id="grade-form" action="/">
           <div class="row">
-            <div class="col-sm">
+            <h4>Add Grade</h4>
+          </div>
+          <div class="row">
+            <div class="col">
               <label for="name"><i class="fas fa-users"></i></label>
               <input type="text" id="name" name="name" placeholder="Name">
             </div>
           </div>
           <div class="row">
-            <div class="col-sm">
+            <div class="col">
               <label for="course"><i class="fas fa-digital-tachograph"></i></label>
               <input type="text" id="course" name="course" placeholder="Course">
             </div>
           </div>
           <div class="row">
-            <div class="col-sm">
+            <div class="col">
               <label for="grade"><i class="fas fa-graduation-cap"></i></label>
               <input type="text" id="grade" name="grade" placeholder="Grade">
             </div>
           </div>
           <div class="row">
-            <div class="col-sm">
-              <button type="submit" class="btn btn-secondary">Add</button>
-              <button type="reset" class="btn btn-dark">Cancel</button>
+            <div class="col">
+              <button type="submit" class="btn-sm btn-primary">Add</button>
+              <button type="reset" class="btn-sm btn-secondary">Cancel</button>
             </div>
           </div>
         </form>
