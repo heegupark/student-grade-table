@@ -17,22 +17,22 @@ class GradeTable {
     }
 
     var trTitle = document.createElement('tr')
-    var tdName = document.createElement('td')
-    var tdCourse = document.createElement('td')
-    var tdGrade = document.createElement('td')
-    var tdOp = document.createElement('td')
+    var thName = document.createElement('th')
+    var thCourse = document.createElement('th')
+    var thGrade = document.createElement('th')
+    var thOp = document.createElement('th')
 
-    tdName.textContent = 'Name'
-    tdCourse.textContent = 'Course'
-    tdGrade.textContent = 'Grade'
-    tdOp.textContent = 'Operations'
+    thName.textContent = 'Name'
+    thCourse.textContent = 'Course'
+    thGrade.textContent = 'Grade'
+    thOp.textContent = 'Operations'
 
-    trTitle.append(tdName, tdCourse, tdGrade, tdOp)
+    trTitle.append(thName, thCourse, thGrade, thOp)
     theadElement.appendChild(trTitle)
 
     if (grades.length > 0) {
       for (var i = 0; i < grades.length; i++) {
-        this.renderGradeRow(grades[i], this.deleteGrade)
+        this.renderGradeRow(grades[i], this.deleteGrade, this.patchGrade)
       }
       this.noGradesElement.classList.add('d-none')
     } else {
@@ -44,7 +44,7 @@ class GradeTable {
     this.deleteGrade = deleteGrade
   }
 
-  renderGradeRow(data, deleteGrade) {
+  renderGradeRow(data, deleteGrade, patchGrade) {
     var td = {}
 
     var tr = document.createElement('tr')
@@ -53,16 +53,40 @@ class GradeTable {
       td[key] = document.createElement('td')
       td[key].textContent = data[key]
     }
+
     var tdOpCol = document.createElement('td')
-    var tdOpColBtn = document.createElement('button')
-    tdOpColBtn.textContent = 'Delete'
-    tdOpColBtn.classList.add('btn-sm', 'btn-danger')
-    tdOpColBtn.addEventListener('click', function () {
+    var tdOpColUpBtn = document.createElement('button')
+    var iUpElement = document.createElement('i')
+    iUpElement.classList.add('fas', 'fa-edit')
+    tdOpColUpBtn.classList.add('btn-sm', 'btn-warning', 'mr-3')
+    tdOpColUpBtn.append(iUpElement)
+
+    tdOpColUpBtn.addEventListener('click', (event) => {
+      this.fillForm(data)
+    })
+
+    var tdOpColDelBtn = document.createElement('button')
+    var iDelElement = document.createElement('i')
+    iDelElement.classList.add('far', 'fa-trash-alt')
+    tdOpColDelBtn.classList.add('btn-sm', 'btn-danger', 'mr-3')
+    tdOpColDelBtn.append(iDelElement)
+
+    tdOpColDelBtn.addEventListener('click', function () {
       deleteGrade(data.id)
     })
-    tdOpCol.append(tdOpColBtn)
+
+    tdOpCol.append(tdOpColUpBtn, tdOpColDelBtn)
 
     tr.append(td.name, td.course, td.grade, tdOpCol)
     this.tableElement.querySelector('tbody').appendChild(tr)
+  }
+
+  fillForm(data) {
+    document.getElementById('id').value = data.id
+    document.getElementById('name').value = data.name
+    document.getElementById('course').value = data.course
+    document.getElementById('grade').value = data.grade
+    document.getElementById('submit').textContent = 'Update'
+
   }
 }

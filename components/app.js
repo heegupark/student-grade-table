@@ -5,12 +5,15 @@ class App {
     this.gradeForm = gradeForm
     this.createGrade = this.createGrade.bind(this)
     this.deleteGrade = this.deleteGrade.bind(this)
+    this.patchGrade = this.patchGrade.bind(this)
     this.handleGetGradesError = this.handleGetGradesError.bind(this)
     this.handleGetGradesSuccess = this.handleGetGradesSuccess.bind(this)
     this.handleCreateGradeError = this.handleCreateGradeError.bind(this)
     this.handleCreateGradeSuccess = this.handleCreateGradeSuccess.bind(this)
     this.handleDeleteGradeError = this.handleDeleteGradeError.bind(this)
     this.handleDeleteGradeSuccess = this.handleDeleteGradeSuccess.bind(this)
+    this.handlePatchGradeError = this.handlePatchGradeError.bind(this)
+    this.handlePatchGradeSuccess = this.handlePatchGradeSuccess.bind(this)
   }
 
   handleGetGradesError(error) {
@@ -48,6 +51,15 @@ class App {
   }
 
   handleDeleteGradeSuccess() {
+    this.getGrades()
+  }
+
+  handlePatchGradeError(error) {
+    console.error(error)
+  }
+
+  handlePatchGradeSuccess() {
+    console.log('aaa')
     this.getGrades()
   }
 
@@ -101,9 +113,30 @@ class App {
     })
   }
 
+  patchGrade(id, name, course, grade) {
+    var url = 'https://sgt.lfzprototypes.com'
+    var path = '/api/grades/' + id
+    var apiKey = '6LXyHIPT'
+    $.ajax({
+      method: 'PATCH',
+      url: url + path,
+      headers: {
+        "X-Access-Token": apiKey
+      },
+      data: {
+        "name": name,
+        "course": course,
+        "grade": grade
+      },
+      success: this.handlePatchGradeSuccess,
+      error: this.handlePatchGradeError
+    })
+  }
+
   start() {
     this.getGrades()
     this.gradeForm.onSubmit(this.createGrade)
     this.gradeTable.onDeleteClick(this.deleteGrade)
+    this.gradeForm.onPatchClick(this.patchGrade)
   }
 }
