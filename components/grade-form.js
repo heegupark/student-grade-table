@@ -18,5 +18,8 @@ class GradeForm {
     var grade = formData.get('grade')
 
     this.createGrade(name, course, grade)
+
+    // Clearing the fields after submiting the form
+    this.formElement.reset()
   }
 }
