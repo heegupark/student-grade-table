@@ -4,13 +4,16 @@ class GradeTable {
   }
 
   updateGrades(grades) {
+    var theadElement = this.tableElement.querySelector('thead')
     var tbodyElement = this.tableElement.querySelector('tbody')
 
-    while (tbodyElement.fistChild) {
-      tbodyElement.removeChild()
+    while (theadElement.firstChild) {
+      theadElement.firstChild.remove()
     }
 
-    var theadElement = this.tableElement.querySelector('thead')
+    while (tbodyElement.firstChild) {
+      tbodyElement.firstChild.remove()
+    }
 
     var trTitle = document.createElement('tr')
     var tdName = document.createElement('td')
@@ -22,7 +25,7 @@ class GradeTable {
     tdGrade.textContent = 'Grade'
 
     trTitle.append(tdName, tdCourse, tdGrade)
-    tbodyElement.appendChild(trTitle)
+    theadElement.appendChild(trTitle)
 
     var td = {}
 

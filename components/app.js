@@ -1,9 +1,13 @@
 class App {
-  constructor(gradeTable, pageHeader) {
+  constructor(gradeTable, pageHeader, gradeForm) {
     this.gradeTable = gradeTable
     this.pageHeader = pageHeader
+    this.gradeForm = gradeForm
+    this.createGrade = this.createGrade.bind(this)
     this.handleGetGradesError = this.handleGetGradesError.bind(this)
     this.handleGetGradesSuccess = this.handleGetGradesSuccess.bind(this)
+    this.handleCreateGradeError = this.handleCreateGradeError.bind(this)
+    this.handleCreateGradeSuccess = this.handleCreateGradeSuccess.bind(this)
   }
 
   handleGetGradesError(error) {
@@ -23,12 +27,21 @@ class App {
     this.pageHeader.updateAverage(average)
   }
 
+  handleCreateGradeError(error) {
+    console.error(error)
+  }
+
+  handleCreateGradeSuccess() {
+    this.getGrades()
+  }
+
   getGrades() {
-    var url = 'https://sgt.lfzprototypes.com/api/grades'
+    var url = 'https://sgt.lfzprototypes.com'
+    var path = '/api/grades'
     var apiKey = '6LXyHIPT'
     $.ajax({
       method: 'GET',
-      url: url,
+      url: url + path,
       headers: {
         "X-Access-Token": apiKey
       },
@@ -37,7 +50,28 @@ class App {
     })
   }
 
+  createGrade(name, course, grade) {
+    var url = 'https://sgt.lfzprototypes.com'
+    var path = '/api/grades'
+    var apiKey = '6LXyHIPT'
+    $.ajax({
+      method: 'POST',
+      url: url + path,
+      headers: {
+        "X-Access-Token": apiKey
+      },
+      data: {
+        "name": name,
+        "course": course,
+        "grade": grade
+      },
+      success: this.handleCreateGradeSuccess,
+      error: this.handleCreateGradeError
+    })
+  }
+
   start() {
     this.getGrades()
+    this.gradeForm.onSubmit(this.createGrade)
   }
 }
