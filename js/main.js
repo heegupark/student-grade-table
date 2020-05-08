@@ -11,6 +11,10 @@ var gradeFormElement = document.getElementById('grade-form')
 
 var gradeForm = new GradeForm(gradeFormElement)
 
+// for avoid frequent GET request
+var resultArray = {}
+var patchId
+
 var app = new App(
   gradeTable,
   pageHeader,

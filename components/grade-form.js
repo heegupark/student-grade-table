@@ -23,7 +23,7 @@ class GradeForm {
     var name = formData.get('name')
     var course = formData.get('course')
     var grade = formData.get('grade')
-    var id = document.getElementById('id').value
+    var id = patchId
 
     if(!name.trim()) {
       msgElement.classList.remove('d-none')
@@ -74,8 +74,8 @@ class GradeForm {
     } else if (submitElement.textContent === 'Update') {
       submitElement.textContent = 'Add'
       this.patchGrade(id, name, course, grade)
-
     }
+
     // Clearing the fields after submiting the form
     this.formElement.reset()
   }

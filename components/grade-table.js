@@ -4,6 +4,11 @@ class GradeTable {
     this.noGradesElement = noGradesElement
   }
 
+  addOneGradeToTable(grade) {
+    var tbodyElement = this.tableElement.querySelector('tbody')
+    this.renderGradeRow(grade, this.deleteGrade, this.patchGrade)
+  }
+
   updateGrades(grades) {
     var theadElement = this.tableElement.querySelector('thead')
     var tbodyElement = this.tableElement.querySelector('tbody')
@@ -82,11 +87,10 @@ class GradeTable {
   }
 
   fillForm(data) {
-    document.getElementById('id').value = data.id
     document.getElementById('name').value = data.name
     document.getElementById('course').value = data.course
     document.getElementById('grade').value = data.grade
+    patchId = data.id
     document.getElementById('submit').textContent = 'Update'
-
   }
 }

@@ -3,6 +3,7 @@ class App {
     this.gradeTable = gradeTable
     this.pageHeader = pageHeader
     this.gradeForm = gradeForm
+    this.resultArray = resultArray
     this.createGrade = this.createGrade.bind(this)
     this.deleteGrade = this.deleteGrade.bind(this)
     this.patchGrade = this.patchGrade.bind(this)
@@ -21,29 +22,19 @@ class App {
   }
 
   handleGetGradesSuccess(grades) {
-    this.gradeTable.updateGrades(grades)
-
-    var sum = 0
-
-    for (var i = 0; i < grades.length; i++) {
-      sum += grades[i].grade
-    }
-
-    if(grades.length > 0) {
-      var average = sum / grades.length
-    } else {
-      var average = 0
-    }
-
-    this.pageHeader.updateAverage(average)
+    this.resultArray = grades
+    this.gradeTable.updateGrades(this.resultArray )
+    this.pageHeader.updateAverage(this.resultArray)
   }
 
   handleCreateGradeError(error) {
     console.error(error)
   }
 
-  handleCreateGradeSuccess() {
-    this.getGrades()
+  handleCreateGradeSuccess(grade) {
+    this.gradeTable.addOneGradeToTable(grade)
+    this.resultArray.push(grade)
+    this.pageHeader.updateAverage(this.resultArray)
   }
 
   handleDeleteGradeError(error) {
@@ -51,16 +42,31 @@ class App {
   }
 
   handleDeleteGradeSuccess() {
-    this.getGrades()
+    for(var i=0; i<this.resultArray.length;i++) {
+      if(this.resultArray[i].id === this.id) {
+        this.resultArray.splice(i, 1)
+      }
+    }
+
+    this.gradeTable.updateGrades(this.resultArray)
+    this.pageHeader.updateAverage(this.resultArray)
   }
 
   handlePatchGradeError(error) {
     console.error(error)
   }
 
-  handlePatchGradeSuccess() {
-    console.log('aaa')
-    this.getGrades()
+  handlePatchGradeSuccess(grade) {
+    for (var i = 0; i < this.resultArray.length; i++) {
+      if (this.resultArray[i].id === grade.id) {
+        this.resultArray[i].name = grade.name
+        this.resultArray[i].course = grade.course
+        this.resultArray[i].grade = grade.grade
+      }
+    }
+
+    this.gradeTable.updateGrades(this.resultArray)
+    this.pageHeader.updateAverage(this.resultArray)
   }
 
   getGrades() {
@@ -99,6 +105,7 @@ class App {
   }
 
   deleteGrade(id) {
+    this.id = id
     var url = 'https://sgt.lfzprototypes.com'
     var path = '/api/grades/' + id
     var apiKey = '6LXyHIPT'
